@@ -1,0 +1,29 @@
+{
+  "name": "doantheatermovie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/congle16/project-theater-movie.git"
+  },
+  "author": "cong_le",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/congle16/project-theater-movie/issues"
+  },
+  "homepage": "https://github.com/congle16/project-theater-movie#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.19.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
+}
