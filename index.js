@@ -1,22 +1,34 @@
 'use strict';
 const express = require("express");
-const { sequelize } = require("./models");
+const cors = require("cors");
+const testDB = require('./src/config/database');
+const properties = require('./src/config/properties');
 const rootRouter = require("./src/routers/router");
 
 const app = express();
 
-app.use('/api/v1', rootRouter);
+// link to frontend
+const whitelist = properties.SYSTEM.CORS;
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
+app.use(cors(corsOptions));
 
 // test connection
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+testDB();
 
-const port = process.env.PORT || 3000;
+app.use(express.json());
+
+app.use('/api/v1', rootRouter);
+
+const port = process.env.PORT || properties.SYSTEM.PORT;
 app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
+    console.log(`Server is listening on port ${properties.SYSTEM.PORT}`);
 });
