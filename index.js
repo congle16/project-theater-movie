@@ -1,9 +1,13 @@
 'use strict';
 const express = require("express");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
+
+
 const testDB = require('./src/config/database');
 const properties = require('./src/config/properties');
-const route = require("./src/routers/index");
+const rootRouter = require("./src/routers/root.route");
 
 const app = express();
 
@@ -26,8 +30,31 @@ testDB();
 
 app.use(express.json());
 
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Theater Movie API",
+            version: "1.0.0"
+        },
+        servers: [
+            {
+                url: "http://localhost:3000/",
+                description: "Local server"
+            },
+            {
+                url: "http://",
+                description: "Production server"
+            }
+        ]
+    },
+    apis: ["./src/routers/*.route.js"]
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 // route init
-route(app);
+app.use('/api/v1', rootRouter);
 
 const port = process.env.PORT || properties.SYSTEM.PORT;
 app.listen(port, () => {
