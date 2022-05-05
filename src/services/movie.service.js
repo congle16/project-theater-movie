@@ -14,6 +14,19 @@ const getAllMovies = async () => {
     }
 }
 
+const createMovie = async (movie) => {
+    try {
+        return await Phim.create(movie);
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 module.exports = {
-    getAllMovies
+    getAllMovies,
+    createMovie
 }

@@ -5,7 +5,7 @@ module.exports = {
         version: '1.0.0',
         // The port to run the application on
         AUTH: {
-            SECRET_KEY: 'secret',
+            SECRET_KEY: 'nodejs-secret-key',
         },
         SYSTEM: {
             PORT: 3000,
