@@ -1,16 +1,19 @@
 const {
     scriptPassword,
-    isAddressEmail
+    isAddressEmail,
+    comparePassword,
+    genToken
 } = require("../services/auth.service");
 const { 
     createKhachHang, 
     createUser,
-    getMaxId
+    getMaxId,
+    getUserByUsername
 } = require("../services/user.service");
 
 
 class UserController {
-    // POST 
+    // POST sign-up
     async create(req, res) {
         const maxId = await getMaxId();
         const {
@@ -71,6 +74,36 @@ class UserController {
                 message: 'Create User success'
             }
         );
+    }
+
+    // POST sign-in
+    async signIn(req, res) {
+        const { username, password } = req.body;
+
+        const user = await getUserByUsername(username);
+
+        if (!user) {
+            return res.status(400).json({
+                message: `User with username: ${username} not found`
+            });
+        }
+
+        const isSuccess = await comparePassword(password, user.password);
+        console.log({isSuccess});
+
+        if (!isSuccess) {
+            return res.status(400).json({
+                message: 'Password is not valid'
+            });
+        }
+
+        const token = genToken(user.toJSON());
+
+        return res.status(200).json({
+            message: 'Sign in success',
+            user,
+            token
+        });
     }
 }
 

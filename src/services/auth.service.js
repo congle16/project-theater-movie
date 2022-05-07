@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {
     AUTH
-} = require('../../config/config.json');
+} = require('../config/properties');
 
 const scriptPassword = (password) => {
     const salt = bcrypt.genSaltSync(10);
@@ -21,6 +21,7 @@ const comparePassword = async (password, passwordHashed) => {
 };
 
 const genToken = (data) => {
+    console.log(data);
     return jwt.sign(data, AUTH.SECRET_KEY, {
         expiresIn: '2h'
     });

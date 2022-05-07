@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'maCV',
         as: 'chucVu'
       });
-      this.hasOne(models.User, {
+      this.belongsTo(models.User, {
         foreignKey: 'maUser'
       });
     }

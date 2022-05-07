@@ -12,11 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasOne(models.NhanVien, {
-        foreignKey: 'maUser'
-      });
+        foreignKey: 'maUser',
+        as: 'nhanVien'
+        });
       this.hasOne(models.KhachHang, {
-        foreignKey: 'maUser'
-      });
+          foreignKey: 'maUser',
+          as: 'khachHang'
+        });
     }
   }
   User.init({

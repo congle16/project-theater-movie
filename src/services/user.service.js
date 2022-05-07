@@ -38,8 +38,25 @@ const getMaxId = async () => {
     }
 }
 
+const getUserByUsername = async (username) => {
+    try {
+        return await User.findOne({
+            where: {
+                username
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 module.exports = {
     createUser,
     createKhachHang,
-    getMaxId
+    getMaxId,
+    getUserByUsername
 }
