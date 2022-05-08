@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'maUser',
           as: 'khachHang'
         });
+      this.hasMany(models.VeMua, {
+        foreignKey: 'maUser',
+        as: 'veMua'
+      });
     }
   }
   User.init({

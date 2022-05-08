@@ -11,9 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.QuangCao, {
+        foreignKey: 'maPhim'
+      });
+      this.belongsTo(models.TheLoaiPhim, {
+        foreignKey: 'maTheLoai'
+        });
+      this.hasMany(models.LichChieu, {
+        foreignKey: 'maPhim'
+        });
+      this.hasMany(models.Ve, {
+        foreignKey: 'maPhim'
+        });
     }
   }
   Phim.init({
+    maTheLoai: DataTypes.INTEGER,
     tenPhim: DataTypes.STRING,
     noiDungPhim: DataTypes.STRING,
     daoDien: DataTypes.STRING,

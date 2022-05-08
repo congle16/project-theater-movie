@@ -1,55 +1,43 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Phims', {
+    await queryInterface.createTable('QuangCaos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      maTheLoai: {
+      maPhim: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'TheLoaiPhims',
+          model: 'Phims',
           key: 'id'
         }
       },
-      tenPhim: {
+      tenQuangCao: {
         type: Sequelize.STRING
       },
-      noiDungPhim: {
+      timeStart: {
+        type: Sequelize.DATE
+      },
+      timeEnd: {
+        type: Sequelize.DATE
+      },
+      noiDung: {
         type: Sequelize.STRING
       },
-      daoDien: {
-        type: Sequelize.STRING
-      },
-      nuocSanXuat: {
-        type: Sequelize.STRING
-      },
-      thoiLuong: {
-        type: Sequelize.STRING
-      },
-      trailer: {
-        type: Sequelize.STRING
-      },
-      poster: {
-        type: Sequelize.STRING
-      },
-      trangThai: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Phims');
+    await queryInterface.dropTable('QuangCaos');
   }
 };
