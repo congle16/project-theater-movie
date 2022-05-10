@@ -13,6 +13,6 @@ router.get('/', (req, res) => {
 
 router.use('/movies', movieRouter);
 
-router.use('/user', userRouter);
+router.use('/users', userRouter);
 
 module.exports = router;
