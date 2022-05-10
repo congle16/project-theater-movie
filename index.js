@@ -57,6 +57,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api/v1', rootRouter);
 
 const port = process.env.PORT || properties.SYSTEM.PORT;
-app.listen(port, () => {
+const host = '0.0.0.0'
+app.listen(port, host, () => {
     console.log(`Server is listening on port ${properties.SYSTEM.PORT}`);
 });
