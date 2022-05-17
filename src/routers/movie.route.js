@@ -75,7 +75,12 @@ const movieController = require('../controllers/movie.controller');
 
 movieRouter.get('/', movieController.index);
 
-
 movieRouter.post('/', movieController.create);
+
+movieRouter.get('/:id', movieController.showDetail);
+
+movieRouter.delete('/:id', movieController.delete);
+
+movieRouter.put('/:id', movieController.update);
 
 module.exports = movieRouter;

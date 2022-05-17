@@ -12,18 +12,18 @@ const rootRouter = require("./src/routers/root.route");
 const app = express();
 
 // link to frontend
-const whitelist = properties.SYSTEM.CORS;
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
-}
+// const whitelist = properties.SYSTEM.CORS;
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         if (whitelist.indexOf(origin) !== -1) {
+//             callback(null, true)
+//         } else {
+//             callback(new Error('Not allowed by CORS'))
+//         }
+//     }
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // test connection
 testDB();

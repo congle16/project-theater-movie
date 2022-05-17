@@ -1,6 +1,5 @@
 const {
     scriptPassword,
-    isAddressEmail,
     comparePassword,
     genToken
 } = require("../services/auth.service");
@@ -8,7 +7,8 @@ const {
     createKhachHang, 
     createUser,
     getMaxId,
-    getUserByUsername
+    getUserByUsername,
+    getUserByCardId
 } = require("../services/user.service");
 
 
@@ -20,27 +20,32 @@ class UserController {
             tenKH,
             gioiTinh,
             CMND,
-            SDT,
-            email
+            SDT
         } = req.body;
 
         const { username, password } = req.body;
 
-        if (!tenKH || !gioiTinh || !CMND || !SDT || !email || !username || !password) {
+        if (!tenKH || !gioiTinh || !CMND || !SDT || !username || !password) {
             return res.status(400).json({
                 message: 'Missing fields'
-            });
-        }
-
-        if (!isAddressEmail(email)) {
-            return res.status(400).json({
-                message: 'Email is not valid'
             });
         }
 
         if (!password || !password.trim()) {
             return res.status(400).json({
                 message: 'Password is not valid'
+            });
+        }
+
+        if (await getUserByCardId(CMND)) {
+            return res.status(400).json({
+                message: 'CMND is exist'
+            });
+        }
+
+        if (await getUserByUsername(username)) {
+            return res.status(400).json({
+                message: 'Username is exist'
             });
         }
 
@@ -59,8 +64,7 @@ class UserController {
             tenKH,
             gioiTinh,
             CMND,
-            SDT,
-            email
+            SDT
         });
 
         if (!khachHang || !user) {
@@ -105,6 +109,16 @@ class UserController {
             token
         });
     }
+
+    async delete(req, res) {
+        const { username } = req.body;
+        console.log({username});
+        console.log('u can delete');
+        return res.status(200).json({
+            message: 'Delete success'
+        });
+    }
+
 }
 
 module.exports = new UserController;

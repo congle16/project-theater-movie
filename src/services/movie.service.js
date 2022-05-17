@@ -4,7 +4,9 @@ const {Phim} = require('../../models');
 
 const getAllMovies = async () => {
     try {
-        return await Phim.findAll();
+        return await Phim.findAll({
+            attributes: ['maTheLoai', 'tenPhim', 'noiDungPhim', 'daoDien', 'nuocSanXuat', 'thoiLuong', 'trailer', 'poster', 'trangThai'],
+        });
     } catch (error) {
         console.log(error);
         return {
@@ -26,7 +28,75 @@ const createMovie = async (movie) => {
     }
 }
 
+const getMovieById = async (id) => {
+    try {
+        return await Phim.findOne({
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const deleteMovie = async (id) => {
+    try {
+        return await Phim.destroy({
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const updateMovieById = async (id, movie) => {
+    try {
+        return await Phim.update(movie, {
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const checkExistMovieById = async (id) => {
+    try {
+        // return await Movie.findById(id);
+        const movie = await Phim.findOne({
+            where: {
+                id
+            },
+            attributes: ['id']
+        });
+        return !(!movie);
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 module.exports = {
     getAllMovies,
-    createMovie
+    createMovie,
+    getMovieById,
+    deleteMovie,
+    updateMovieById,
+    checkExistMovieById,
 }

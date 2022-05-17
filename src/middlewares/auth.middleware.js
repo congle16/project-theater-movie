@@ -1,10 +1,10 @@
 const { 
     getUserByUsername
-} = require('../services/user.services');
+} = require('../services/user.service');
 
 const {
     decodeToken
-} = require('../services/auth.services');
+} = require('../services/auth.service');
 
 const authenticate = async (req, res, next) => {
     try {
@@ -27,4 +27,8 @@ const authenticate = async (req, res, next) => {
             message: 'Unauthorized'
         });
     }
+}
+
+module.exports = {
+    authenticate
 }

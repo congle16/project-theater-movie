@@ -54,9 +54,26 @@ const getUserByUsername = async (username) => {
     }
 }
 
+const getUserByCardId = async (CMND) => {
+    try {
+        return await KhachHang.findOne({
+            where: {
+                CMND
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 module.exports = {
     createUser,
     createKhachHang,
     getMaxId,
-    getUserByUsername
+    getUserByUsername,
+    getUserByCardId
 }
