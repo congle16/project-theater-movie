@@ -1,7 +1,9 @@
 'use strict';
 const express = require('express');
 const movieRouter = express.Router();
-
+const {
+    authenticate
+} = require('../middlewares/auth.middleware');
 const movieController = require('../controllers/movie.controller');
 
 /**
@@ -79,8 +81,8 @@ movieRouter.post('/', movieController.create);
 
 movieRouter.get('/:id', movieController.showDetail);
 
-movieRouter.delete('/:id', movieController.delete);
+movieRouter.delete('/:id', authenticate, movieController.delete);
 
-movieRouter.put('/:id', movieController.update);
+movieRouter.put('/:id', authenticate, movieController.update);
 
 module.exports = movieRouter;

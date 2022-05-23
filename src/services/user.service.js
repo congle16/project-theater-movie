@@ -14,6 +14,20 @@ const createUser = async (user) => {
     }
 }
 
+const getAllUsers = async () => {
+    try {
+        return await User.findAll({
+            attributes: ['id', 'username', 'type', 'trangThai']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 const createKhachHang = async (khachHang) => {
     try {
         return await KhachHang.create(khachHang);
@@ -75,5 +89,6 @@ module.exports = {
     createKhachHang,
     getMaxId,
     getUserByUsername,
-    getUserByCardId
+    getUserByCardId,
+    getAllUsers
 }

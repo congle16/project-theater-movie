@@ -8,7 +8,8 @@ const {
     createUser,
     getMaxId,
     getUserByUsername,
-    getUserByCardId
+    getUserByCardId,
+    getAllUsers
 } = require("../services/user.service");
 
 
@@ -108,6 +109,17 @@ class UserController {
             user,
             token
         });
+    }
+
+    // GET get all users
+    async getAllUsers(req, res) {
+        const users = await getAllUsers();
+        if (!users) {
+            return res.status(404).json({
+                message: 'No users found'
+            });
+        }
+        return res.status(200).json(users);
     }
 
     async delete(req, res) {
