@@ -40,6 +40,20 @@ const createKhachHang = async (khachHang) => {
     }
 }
 
+const getAllKhachHang = async () => {
+    try {
+        return await KhachHang.findAll({
+            attributes: ['id', 'tenKH', 'gioiTinh', 'CMND', 'SDT']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 const getMaxId = async () => {
     try {
         return await User.max('id');
@@ -84,11 +98,20 @@ const getUserByCardId = async (CMND) => {
     }
 }
 
+const deleteUserById = (id) => {
+    return User.destroy({
+        where: {
+            id
+        }
+    });
+}
+
 module.exports = {
     createUser,
     createKhachHang,
     getMaxId,
     getUserByUsername,
     getUserByCardId,
-    getAllUsers
+    getAllUsers,
+    getAllKhachHang
 }

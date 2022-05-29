@@ -9,7 +9,8 @@ const {
     getMaxId,
     getUserByUsername,
     getUserByCardId,
-    getAllUsers
+    getAllUsers,
+    getAllKhachHang
 } = require("../services/user.service");
 
 
@@ -122,6 +123,16 @@ class UserController {
         return res.status(200).json(users);
     }
 
+    async getAllKhachHang(req, res) {
+        const khachHangs = await getAllKhachHang();
+        if (!khachHangs) {
+            return res.status(404).json({
+                message: 'Found Failed'
+            });
+        }
+        return res.status(200).json(khachHangs);
+    }
+
     async delete(req, res) {
         const { username } = req.body;
         console.log({username});
@@ -131,6 +142,10 @@ class UserController {
         });
     }
 
+    async getMe(req, res) {
+        const user = req.user;
+        return res.status(200).json(user);
+    }
 }
 
 module.exports = new UserController;
