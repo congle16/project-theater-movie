@@ -47,11 +47,13 @@ const getMovieById = async (id) => {
 
 const deleteMovie = async (id) => {
     try {
-        return await Phim.destroy({
-            where: {
-                id
-            }
-        });
+        return await Phim.update({
+            trangThai: 'Đã Chiếu'
+            }, {
+                where: {
+                    id
+                }
+            });
     } catch (error) {
         console.log(error);
         return {

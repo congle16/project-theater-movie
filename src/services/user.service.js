@@ -106,6 +106,28 @@ const deleteUserById = (id) => {
     });
 }
 
+const getUserById = async (id) => {
+    try {
+        return await User.findOne({
+            where: {
+                id
+            },
+            attributes: ['username', 'type', 'trangThai'],
+            include: [{
+                model: KhachHang,
+                as : 'khachHang',
+                attributes: ['tenKH', 'gioiTinh', 'CMND', 'SDT']
+            }]
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 module.exports = {
     createUser,
     createKhachHang,
@@ -113,5 +135,6 @@ module.exports = {
     getUserByUsername,
     getUserByCardId,
     getAllUsers,
-    getAllKhachHang
+    getAllKhachHang,
+    getUserById
 }

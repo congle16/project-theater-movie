@@ -6,6 +6,7 @@ const movieRouter = require('./movie.route');
 const userRouter = require('./user.route');
 const roomRouter = require('./room.route');
 const positionRouter = require('./position.route');
+const categoryRouter = require('./category.route');
 
 
 router.get('/', (req, res) => {
@@ -20,5 +21,7 @@ router.use('/users', userRouter);
 router.use('/rooms', roomRouter);
 
 router.use('/positions', positionRouter);
+
+router.use('/category', categoryRouter);
 
 module.exports = router;

@@ -8,9 +8,9 @@ const {
 
 const authenticate = async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
-    console.log({token});
+    // console.log({token});
     const decoded = decodeToken(token);
-    console.log({decoded});
+    // console.log({decoded});
     try {
         const user = await getUserByUsername(decoded.username);
         if (!user) {

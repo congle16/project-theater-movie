@@ -10,7 +10,8 @@ const {
     getUserByUsername,
     getUserByCardId,
     getAllUsers,
-    getAllKhachHang
+    getAllKhachHang,
+    getUserById
 } = require("../services/user.service");
 
 
@@ -143,7 +144,8 @@ class UserController {
     }
 
     async getMe(req, res) {
-        const user = req.user;
+        const user = await getUserById(req.user.dataValues.id);
+
         return res.status(200).json(user);
     }
 }
