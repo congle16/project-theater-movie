@@ -4,7 +4,7 @@ const movieRouter = express.Router();
 const {
     authenticate
 } = require('../middlewares/auth.middleware');
-const movieController = require('../controllers/movie.controller');
+const MovieController = require('../controllers/movie.controller');
 
 /**
  * @swagger
@@ -75,14 +75,14 @@ const movieController = require('../controllers/movie.controller');
  *                 $ref: '#/components/schemas/Movie'
  */
 
-movieRouter.get('/', movieController.index);
+movieRouter.get('/', MovieController.index);
 
-movieRouter.post('/', movieController.create);
+movieRouter.post('/', MovieController.create);
 
-movieRouter.get('/:id', movieController.showDetail);
+movieRouter.get('/:id', MovieController.showDetail);
 
-movieRouter.delete('/:id', authenticate, movieController.delete);
+movieRouter.delete('/:id', authenticate, MovieController.delete);
 
-movieRouter.put('/:id', authenticate, movieController.update);
+movieRouter.put('/:id', authenticate, MovieController.update);
 
 module.exports = movieRouter;
