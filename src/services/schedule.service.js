@@ -1,0 +1,89 @@
+'use strict';
+
+const {LichChieu} = require('../../models');
+
+
+const getAllSchedules = async () => {
+    try {
+        return await LichChieu.findAll({
+            attributes: ['id', 'maPhong', 'maPhim', 'ngayChieu', 'trangThai'],
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const createSchedule = async (schedule) => {
+    try {
+        return await LichChieu.create(schedule);
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const getScheduleById = async (id) => {
+    try {
+        return await LichChieu.findOne({
+            where: {
+                id
+            },
+            attributes: ['id', 'maPhong', 'maPhim', 'ngayChieu', 'trangThai']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const updateSchedule = async (id, schedule) => {
+    try {
+        return await LichChieu.update(schedule, {
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const deleteCategoryById = async (id) => {
+    try {
+        return await LichChieu.update({
+            trangThai: 'Đã chiếu'
+        }, {
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+module.exports = {
+    getAllSchedules,
+    createSchedule,
+    getScheduleById,
+    updateSchedule,
+    deleteCategoryById
+}
