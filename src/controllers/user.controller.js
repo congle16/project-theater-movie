@@ -11,7 +11,8 @@ const {
     getUserByCardId,
     getAllUsers,
     getAllKhachHang,
-    getUserById
+    getUserById,
+    deleteUserById
 } = require("../services/user.service");
 
 
@@ -135,11 +136,26 @@ class UserController {
     }
 
     async delete(req, res) {
-        const { username } = req.body;
-        console.log({username});
-        console.log('u can delete');
+        const {id} = req.params;
+
+        const user = await getUserById(id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        const result = await deleteUserById(id);
+
+        if (!result) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+
         return res.status(200).json({
-            message: 'Delete success'
+            message: 'Delete user success'
         });
     }
 

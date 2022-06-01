@@ -7,6 +7,7 @@ const userRouter = require('./user.route');
 const roomRouter = require('./room.route');
 const positionRouter = require('./position.route');
 const categoryRouter = require('./category.route');
+const advertisementRouter = require('./advertisement.route');
 
 
 router.get('/', (req, res) => {
@@ -23,5 +24,7 @@ router.use('/rooms', roomRouter);
 router.use('/positions', positionRouter);
 
 router.use('/category', categoryRouter);
+
+router.use('/advertisement', advertisementRouter);
 
 module.exports = router;

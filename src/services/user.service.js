@@ -99,11 +99,22 @@ const getUserByCardId = async (CMND) => {
 }
 
 const deleteUserById = (id) => {
-    return User.destroy({
-        where: {
-            id
-        }
-    });
+    try {
+        return User.update({
+            trangThai: 'not active'
+        }, {
+            where: {
+                id
+            }
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
 }
 
 const getUserById = async (id) => {
@@ -136,5 +147,6 @@ module.exports = {
     getUserByCardId,
     getAllUsers,
     getAllKhachHang,
-    getUserById
+    getUserById,
+    deleteUserById
 }
