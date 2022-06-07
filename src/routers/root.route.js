@@ -11,6 +11,7 @@ const advertisementRouter = require('./advertisement.route');
 const scheduleRouter = require('./schedule.route');
 const ticketTypeRouter = require('./ticketType.route');
 const showTimeRouter = require('./showtime.route');
+const seatRouter = require('./seat.route');
 
 
 router.get('/', (req, res) => {
@@ -35,5 +36,7 @@ router.use('/schedule', scheduleRouter);
 router.use('/tickettype', ticketTypeRouter);
 
 router.use('/showtime', showTimeRouter);
+
+router.use('/seat', seatRouter);
 
 module.exports = router;
