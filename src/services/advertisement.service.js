@@ -7,7 +7,7 @@ const {
 const getAllAdvertisements = async () => {
     try {
         const advertisements = await QuangCao.findAll({
-            attributes: ['maPhim', 'tenQuangCao', 'noiDung', 'timeStart', 'timeEnd']
+            attributes: ['id', 'maPhim', 'tenQuangCao', 'noiDung', 'timeStart', 'timeEnd']
         });
 
         if (!advertisements) {
