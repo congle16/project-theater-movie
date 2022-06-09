@@ -95,6 +95,24 @@ const checkExistMovieById = async (id) => {
     }
 }
 
+
+const getMovieByStatus = async (trangThai) => {
+    try {
+        return await Phim.findAll({
+            where: {
+                trangThai
+            },
+            attributes: ['id', 'maTheLoai', 'tenPhim', 'noiDungPhim', 'daoDien', 'nuocSanXuat', 'thoiLuong', 'trailer', 'poster', 'trangThai']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 module.exports = {
     getAllMovies,
     createMovie,
@@ -102,4 +120,5 @@ module.exports = {
     deleteMovie,
     updateMovieById,
     checkExistMovieById,
+	getMovieByStatus
 }

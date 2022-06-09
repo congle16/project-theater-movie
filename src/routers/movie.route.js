@@ -77,6 +77,8 @@ const MovieController = require('../controllers/movie.controller');
 
 movieRouter.get('/', MovieController.index);
 
+movieRouter.get('/trangthai/:trangThai', MovieController.getDangChieu);
+
 movieRouter.post('/', MovieController.create);
 
 movieRouter.get('/:id', MovieController.showDetail);
