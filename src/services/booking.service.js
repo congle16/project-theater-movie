@@ -30,7 +30,7 @@ const createBooking = async (ticket) => {
     }
 };
 
-const getTicketById = async (id) => {
+const getTicketBuyById = async (id) => {
     try {
         return await VeMua.findOne({
             where: {
@@ -66,6 +66,6 @@ const updateBooking = async (id, ticket) => {
 module.exports = {
     getAllBookings,
     createBooking,
-    getTicketById,
+    getTicketBuyById,
     updateBooking
 }

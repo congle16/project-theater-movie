@@ -6,6 +6,10 @@ const {
     deleteShowtime
 } = require('../services/showtime.service');
 
+const {
+    getScheduleById
+} = require('../services/schedule.service');
+
 class ShowtimeController {
 
     async index(req, res) {
@@ -31,6 +35,14 @@ class ShowtimeController {
         if (!maLichChieu || !tenSuatChieu || !timeStart || !timeEnd) {
             return res.status(400).json({
                 message: 'Missing fields'
+            });
+        }
+
+        const schedule = getScheduleById(maLichChieu);
+
+        if (!schedule) {
+            return res.status(404).json({
+                message: 'Schedule not found'
             });
         }
 

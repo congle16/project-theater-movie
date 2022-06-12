@@ -6,6 +6,22 @@ const {
     deleteTicket
 } = require('../services/ticket.service');
 
+const {
+    getShowtimeById
+} = require('../services/showtime.service');
+
+const {
+    getById
+} = require('../services/ticketType.service');
+
+const {
+    getRoomById
+} = require('../services/room.service');
+
+const {
+    getMovieById
+} = require('../services/movie.service');
+
 class TicketController {
 
     async index(req, res) {
@@ -30,6 +46,38 @@ class TicketController {
         if (!maSuatChieu || !maLoaiVe || !maPhong || !maPhim || !ngayMua) {
             return res.status(400).json({
                 message: 'Missing fields'
+            });
+        }
+
+        const suatChieu = await getShowtimeById(maSuatChieu);
+
+        if (!suatChieu) {
+            return res.status(404).json({
+                message: 'No showtime found'
+            });
+        }
+
+        const ticketType = await getById(maLoaiVe);
+
+        if (!ticketType) {
+            return res.status(404).json({
+                message: 'No ticket type found'
+            });
+        }
+
+        const room = getRoomById(maPhong);
+
+        if (!room) {
+            return res.status(404).json({
+                message: 'No room found'
+            });
+        }
+
+        const movie = getMovieById(maPhim);
+
+        if (!movie) {
+            return res.status(404).json({
+                message: 'No movie found'
             });
         }
 

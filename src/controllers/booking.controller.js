@@ -1,9 +1,13 @@
 const {
     getAllBookings,
     createBooking,
-    getTicketById,
+    getTicketBuyById,
     updateBooking
 } = require('../services/booking.service');
+
+const {
+    getTicketById
+} = require('../services/ticket.service');
 
 class BookingController {
 
@@ -28,6 +32,22 @@ class BookingController {
         if (!maUser || !maVe) {
             return res.status(400).json({
                 message: 'Missing fields'
+            });
+        }
+
+        const CheckTicket = await getTicketById(maVe);
+
+        if (!CheckTicket) {
+            return res.status(404).json({
+                message: 'No ticket found'
+            });
+        }
+
+        const checkExists = await getTicketBuyById(maVe);
+
+        if (checkExists) {
+            return res.status(400).json({
+                message: 'Ticket is already booked'
             });
         }
 

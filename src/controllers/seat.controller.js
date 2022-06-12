@@ -6,6 +6,10 @@ const {
     deleteSeat
 } = require('../services/seat.service');
 
+const {
+    getRoomById,
+} = require('../services/room.service');
+
 class SeatController {
 
     async index(req, res) {
@@ -27,7 +31,13 @@ class SeatController {
             vitriCot
         } = req.body;
 
-        console.log(maPhong, vitriDay, vitriCot);
+        const room = await getRoomById(maPhong);
+
+        if (!room) {
+            return res.status(404).json({
+                message: 'Room not found'
+            });
+        }
 
         if (!maPhong || !vitriDay || !vitriCot) {
             return res.status(400).json({

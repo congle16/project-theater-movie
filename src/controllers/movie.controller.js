@@ -7,6 +7,10 @@ const {
     checkExistMovieById
 } = require('../services/movie.service');
 
+const {
+    getCategoryById
+} = require('../services/category.service');
+
 class MovieController {
     // [GET] /
     async index(req, res) {
@@ -40,6 +44,14 @@ class MovieController {
         if (!maTheLoai || !tenPhim || !noiDungPhim || !daoDien || !nuocSanXuat || !thoiLuong || !trailer || !poster || !trangThai) {
             return res.status(400).json({
                 message: 'Missing fields'
+            });
+        }
+
+        const category = await getCategoryById(maTheLoai);
+
+        if (!category) {
+            return res.status(404).json({
+                message: 'No category found'
             });
         }
 
