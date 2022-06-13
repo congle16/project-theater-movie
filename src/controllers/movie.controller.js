@@ -4,7 +4,8 @@ const {
     createMovie,
     deleteMovie,
     updateMovieById,
-    checkExistMovieById
+    checkExistMovieById,
+	getMovieByStatus
 } = require('../services/movie.service');
 
 const {
@@ -13,6 +14,21 @@ const {
 
 class MovieController {
     // [GET] /
+    async index(req, res) {
+        const movies = await getAllMovies();
+        const query = req.query;
+        console.log(query);
+
+        if(!movies) {
+            return res.status(404).json({
+                message: 'No movies found'
+            });
+        }
+
+        return res.status(200).json(movies);
+    }
+	
+	// [GET] /
     async index(req, res) {
         const movies = await getAllMovies();
         const query = req.query;
@@ -117,6 +133,24 @@ class MovieController {
         }
 
         return res.status(200).json(deletedMovie);
+    }
+	
+	
+	 // [GET] /trangthai/:trangThai
+    async getDangChieu(req, res) {
+        const {
+            trangThai
+        } = req.params;
+
+        const movie = await getMovieByStatus(trangThai);
+
+        if (!movie) {
+            return res.status(404).json({
+                message: 'Movie not found'
+            });
+        }
+
+        return res.status(200).json(movie);
     }
 
     // [PUT] /:id
