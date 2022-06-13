@@ -139,6 +139,38 @@ const getUserById = async (id) => {
     }
 }
 
+const updateUser = async (id, user) => {
+    try {
+        return await KhachHang.update(user, {
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
+const getCustomerByUserId = async (maUser) => {
+    try {
+        return await KhachHang.findOne({
+            where: {
+                maUser
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 module.exports = {
     createUser,
     createKhachHang,
@@ -148,5 +180,7 @@ module.exports = {
     getAllUsers,
     getAllKhachHang,
     getUserById,
-    deleteUserById
+    deleteUserById,
+    updateUser,
+    getCustomerByUserId
 }

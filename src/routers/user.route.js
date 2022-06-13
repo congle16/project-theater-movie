@@ -17,4 +17,6 @@ userRouter.delete('/:id', [authenticate, checkRole('admin')], userController.del
 
 userRouter.get('/me', authenticate, userController.getMe);
 
+userRouter.put('/me', authenticate, userController.updateMe);
+
 module.exports = userRouter;
