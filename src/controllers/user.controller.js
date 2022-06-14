@@ -64,7 +64,7 @@ class UserController {
         });
 
         const khachHang = await createKhachHang({
-            maUser,
+            maUser: maxId,
             tenKH,
             gioiTinh,
             CMND,
