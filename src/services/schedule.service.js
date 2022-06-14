@@ -48,7 +48,7 @@ const getScheduleById = async (id) => {
 
 const getByMovieId = async (maPhim) => {
     try {
-        return await LichChieu.findOne({
+        return await LichChieu.findAll({
             where: {
                 maPhim
             },
