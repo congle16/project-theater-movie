@@ -11,6 +11,8 @@ userRouter.get('/khach-hangs', [authenticate, checkRole('admin')], userControlle
 
 userRouter.post('/sign-up', userController.create);
 
+userRouter.post('/dang-ky', userController.create2);
+
 userRouter.post('/sign-in', userController.signIn);
 
 userRouter.delete('/:id', [authenticate, checkRole('admin')], userController.delete);
