@@ -12,7 +12,9 @@ const {
     getAllUsers,
     getAllKhachHang,
     getUserById,
-    deleteUserById
+    deleteUserById,
+    updateUser,
+    getCustomerByUserId
 } = require("../services/user.service");
 
 
@@ -163,6 +165,44 @@ class UserController {
         const user = await getUserById(req.user.dataValues.id);
 
         return res.status(200).json(user);
+    }
+
+    async updateMe(req, res) {
+        const {
+            tenKH,
+            gioiTinh,
+            CMND,
+            SDT
+        } = req.body;
+
+        const id = req.user.dataValues.id;
+
+        const user = await getUserById(id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        
+        const customer = await getCustomerByUserId(id);
+
+        const result = updateUser(customer.dataValues.id, {
+            tenKH,
+            gioiTinh,
+            CMND,
+            SDT
+        });
+
+        if (!result) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Update user success'
+        });
     }
 }
 

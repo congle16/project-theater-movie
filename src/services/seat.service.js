@@ -7,7 +7,11 @@ const {
 const getAllSeats = async () => {
     try {
         return await Ghe.findAll({
-            attributes: ['id', 'maPhong', 'trangThai', 'vitriDay', 'vitriCot']
+            attributes: ['id', 'trangThai', 'vitriDay', 'vitriCot'],
+            include: [{
+                association: 'phongChieu',
+                attributes: ['id', 'tenPhong']
+            }]
         });
     } catch (error) {
         console.log(error);
@@ -36,7 +40,11 @@ const getSeatById = async (id) => {
             where: {
                 id
             },
-            attributes: ['id', 'maPhong', 'trangThai', 'vitriDay', 'vitriCot']
+            attributes: ['id', 'trangThai', 'vitriDay', 'vitriCot'],
+            include: [{
+                association: 'phongChieu',
+                attributes: ['id', 'tenPhong']
+            }]
         });
     } catch (error) {
         console.log(error);

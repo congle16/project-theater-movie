@@ -7,7 +7,11 @@ const {
 const getAllAdvertisements = async () => {
     try {
         const advertisements = await QuangCao.findAll({
-            attributes: ['id', 'maPhim', 'tenQuangCao', 'noiDung', 'timeStart', 'timeEnd']
+            attributes: ['id', 'tenQuangCao', 'noiDung', 'timeStart', 'timeEnd'],
+            include: [{
+                association: 'phim',
+                attributes: ['id', 'tenPhim', 'daoDien']
+            }]
         });
 
         if (!advertisements) {
@@ -50,7 +54,12 @@ const getAdvertisementById = async (id) => {
         return await QuangCao.findOne({
             where: {
                 id
-            }
+            },
+            attributes: ['id', 'tenQuangCao', 'noiDung', 'timeStart', 'timeEnd'],
+                include: [{
+                    association: 'phim',
+                    attributes: ['id', 'tenPhim', 'daoDien']
+                }]
         });
     } catch (error) {
         console.log(error);

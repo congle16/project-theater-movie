@@ -6,7 +6,15 @@ const {LichChieu} = require('../../models');
 const getAllSchedules = async () => {
     try {
         return await LichChieu.findAll({
-            attributes: ['id', 'maPhong', 'maPhim', 'ngayChieu', 'trangThai'],
+            attributes: ['id', 'ngayChieu', 'trangThai'],
+            include: [{
+                association: 'phongChieu',
+                attributes: ['id', 'tenPhong']
+            },
+            {
+                association: 'phim',
+                attributes: ['id', 'tenPhim', 'daoDien']
+            }]
         });
     } catch (error) {
         console.log(error);
@@ -35,7 +43,16 @@ const getScheduleById = async (id) => {
             where: {
                 id
             },
-            attributes: ['id', 'maPhong', 'maPhim', 'ngayChieu', 'trangThai']
+            attributes: ['id', 'ngayChieu', 'trangThai'],
+            include: [{
+                    association: 'phongChieu',
+                    attributes: ['id', 'tenPhong']
+                },
+                {
+                    association: 'phim',
+                    attributes: ['id', 'tenPhim', 'daoDien']
+                }
+            ]
         });
     } catch (error) {
         console.log(error);

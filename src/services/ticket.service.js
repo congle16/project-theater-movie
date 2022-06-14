@@ -7,7 +7,24 @@ const {
 const getAllTickets = async () => {
     try {
         return await Ve.findAll({
-            attributes: ['id', 'maSuatChieu', 'maLoaiVe', 'maPhong', 'maPhim', 'ngayMua', 'trangThai']
+            attributes: ['id', 'ngayMua', 'trangThai'],
+            include: [{
+                association: 'suatChieu',
+                attributes: ['id', 'tenSuatChieu', 'timeStart', 'timeEnd'],
+            }, 
+            {
+                association: 'loaiVe',
+                attributes: ['id', 'tenLoaiVe']
+            },
+            {
+                association: 'phongChieu',
+                attributes: ['id', 'tenPhong']
+            },
+            {
+                association: 'phim',
+                attributes: ['id', 'tenPhim', 'daoDien']
+            }
+        ],
         });
     } catch (error) {
         console.log(error);
@@ -36,7 +53,24 @@ const getTicketById = async (id) => {
             where: {
                 id
             },
-            attributes: ['maSuatChieu', 'maLoaiVe', 'maPhong', 'maPhim', 'ngayMua', 'trangThai']
+            attributes: ['id', 'ngayMua', 'trangThai'],
+                include: [{
+                        association: 'suatChieu',
+                        attributes: ['id', 'tenSuatChieu', 'timeStart', 'timeEnd'],
+                    },
+                    {
+                        association: 'loaiVe',
+                        attributes: ['id', 'tenLoaiVe']
+                    },
+                    {
+                        association: 'phongChieu',
+                        attributes: ['id', 'tenPhong']
+                    },
+                    {
+                        association: 'phim',
+                        attributes: ['id', 'tenPhim', 'daoDien']
+                    }
+                ],
         });
     } catch (error) {
         console.log(error);

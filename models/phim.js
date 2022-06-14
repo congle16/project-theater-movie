@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'maPhim'
       });
       this.belongsTo(models.TheLoaiPhim, {
-        foreignKey: 'maTheLoai'
+        foreignKey: 'maTheLoai',
+        as: 'theLoaiPhim'
         });
       this.hasMany(models.LichChieu, {
         foreignKey: 'maPhim'
