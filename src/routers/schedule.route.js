@@ -10,7 +10,7 @@ scheduleRouter.get('/', ScheduleController.index);
 
 scheduleRouter.get('/maPhim/:maPhim', ScheduleController.getByMovieId);
 
-scheduleRouter.get('/maPhimTT/:maPhim/:trangThai', ScheduleController.getByMovieIdTrangThai);
+scheduleRouter.get('/maphimTrangthai/:maPhim/:trangThai', ScheduleController.getByMovieIdTrangThai);
 
 scheduleRouter.post('/', ScheduleController.create);
 
