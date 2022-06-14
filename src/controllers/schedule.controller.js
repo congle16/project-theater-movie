@@ -79,22 +79,23 @@ class ScheduleController {
 	
 	async getByMovieId(req, res) {
         const {
-            maPhong
+            maPhim
         } = req.params;
 
-        if (!maPhong) {
+        if (!maPhim) {
             return res.status(400).json({
                 message: 'Missing fields'
             });
         }
 
-        const schedule = await getByMovieId(maPhong);
+        const schedule = await getByMovieId(maPhim);
 
         if (!schedule) {
             return res.status(404).json({
                 message: 'No schedule found'
             });
         }
+	}
 
     async showDetail(req, res) {
         const {
