@@ -3,7 +3,8 @@ const {
     createSchedule,
     getScheduleById,
     updateSchedule,
-    deleteCategoryById
+    deleteCategoryById,
+	getByMovieId
 } = require('../services/schedule.service');
 
 const {
@@ -28,6 +29,7 @@ class ScheduleController {
         return res.status(200).json(schedules);
     }
 
+	
     async create(req, res) {
         const {
             maPhong,
@@ -74,6 +76,25 @@ class ScheduleController {
             message: 'Create schedule successfully'
         });
     }
+	
+	async getByMovieId(req, res) {
+        const {
+            maPhong
+        } = req.params;
+
+        if (!maPhong) {
+            return res.status(400).json({
+                message: 'Missing fields'
+            });
+        }
+
+        const schedule = await getByMovieId(maPhong);
+
+        if (!schedule) {
+            return res.status(404).json({
+                message: 'No schedule found'
+            });
+        }
 
     async showDetail(req, res) {
         const {

@@ -46,6 +46,23 @@ const getScheduleById = async (id) => {
     }
 }
 
+const getByMovieId = async (maPhim) => {
+    try {
+        return await LichChieu.findOne({
+            where: {
+                maPhim
+            },
+            attributes: ['id', 'maPhong', 'maPhim', 'ngayChieu', 'trangThai']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 const updateSchedule = async (id, schedule) => {
     try {
         return await LichChieu.update(schedule, {
@@ -85,5 +102,6 @@ module.exports = {
     createSchedule,
     getScheduleById,
     updateSchedule,
-    deleteCategoryById
+    deleteCategoryById,
+	getByMovieId
 }
