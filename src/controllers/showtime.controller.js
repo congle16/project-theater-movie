@@ -158,20 +158,20 @@ class ShowtimeController {
 			trangThai
         } = req.params;
 
-        if (!maPhim) {
+        if (!maLichChieu) {
             return res.status(400).json({
                 message: 'Missing fields'
             });
         }
 
-        const schedule = await getByScheduleIdTrangThai(maLichChieu, trangThai);
+        const showtime = await getByScheduleIdTrangThai(maLichChieu, trangThai);
 
-        if (!schedule) {
+        if (!showtime) {
             return res.status(404).json({
-                message: 'No schedule found'
+                message: 'No Showtime found'
             });
         }
-		 return res.status(200).json(schedule);
+		 return res.status(200).json(showtime);
 	}
 }
 
