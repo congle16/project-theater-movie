@@ -12,6 +12,8 @@ seatRouter.post('/', SeatController.create);
 
 seatRouter.get('/:id', SeatController.getById);
 
+seatRouter.get('/room/:id', SeatController.getByRoomId);
+
 seatRouter.put('/:id', SeatController.update);
 
 seatRouter.delete('/:id', SeatController.delete);

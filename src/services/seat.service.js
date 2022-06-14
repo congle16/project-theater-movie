@@ -47,6 +47,23 @@ const getSeatById = async (id) => {
     }
 };
 
+const getByRoomId = async (maPhong) => {
+    try {
+        return await Ghe.findAll({
+            where: {
+                maPhong
+            },
+            attributes: ['id', 'maPhong', 'trangThai', 'vitriDay', 'vitriCot']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        }
+    }
+};
+
 const updateSeat = async (id, seat) => {
     try {
         return await Ghe.update(seat, {
@@ -86,5 +103,6 @@ module.exports = {
     createSeat,
     getSeatById,
     updateSeat,
-    deleteSeat
+    deleteSeat,
+	getByRoomId
 }

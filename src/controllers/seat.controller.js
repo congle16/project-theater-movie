@@ -3,7 +3,8 @@ const {
     createSeat,
     getSeatById,
     updateSeat,
-    deleteSeat
+    deleteSeat,
+	getByRoomId
 } = require('../services/seat.service');
 
 const {
@@ -69,6 +70,22 @@ class SeatController {
         } = req.params;
 
         const seat = await getSeatById(id);
+
+        if (!seat) {
+            return res.status(404).json({
+                message: 'No seat found'
+            });
+        }
+
+        return res.status(200).json(seat);
+    }
+	
+	async getByRoomId(req, res) {
+        const {
+            maPhong
+        } = req.params;
+
+        const seat = await getByRoomId(maPhong);
 
         if (!seat) {
             return res.status(404).json({
