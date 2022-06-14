@@ -72,7 +72,7 @@ class BookingController {
             id
         } = req.params;
 
-        const ticket = await getTicketById(id);
+        const ticket = await getTicketBuyById(id);
 
         if (!ticket) {
             return res.status(404).json({
