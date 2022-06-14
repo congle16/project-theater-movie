@@ -39,7 +39,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: "http://localhost:3000/",
+                url: "http://localhost:5000/",
                 description: "Local server"
             },
             {
@@ -56,7 +56,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // route init
 app.use('/api/v1', rootRouter);
 
-const port = process.env.PORT || properties.SYSTEM.PORT;
+const port = process.env.PORT || 5000;
 const host = '0.0.0.0'
 app.listen(port, host, () => {
     console.log(`Server is listening on port ${properties.SYSTEM.PORT}`);
