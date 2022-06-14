@@ -12,7 +12,7 @@ seatRouter.post('/', SeatController.create);
 
 seatRouter.get('/:id', SeatController.getById);
 
-seatRouter.get('/room/:id', SeatController.getByRoomId);
+seatRouter.get('/room/:maPhong', SeatController.getByRoomId);
 
 seatRouter.put('/:id', SeatController.update);
 
