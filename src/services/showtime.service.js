@@ -81,7 +81,7 @@ const deleteShowtime = async (id) => {
 
 const getByScheduleIdTrangThai = async (maLichChieu, trangThai) => {
     try {
-        return await LichChieu.findAll({
+        return await SuatChieu.findAll({
             where: {
                 maLichChieu,
 				trangThai
