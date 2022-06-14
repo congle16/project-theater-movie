@@ -63,6 +63,24 @@ const getByMovieId = async (maPhim) => {
     }
 }
 
+const getByMovieIdTrangThai = async (maPhim, trangThai) => {
+    try {
+        return await LichChieu.findAll({
+            where: {
+                maPhim,
+				trangThai
+            },
+            attributes: ['id', 'maPhong', 'maPhim', 'ngayChieu', 'trangThai']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 const updateSchedule = async (id, schedule) => {
     try {
         return await LichChieu.update(schedule, {
@@ -103,5 +121,6 @@ module.exports = {
     getScheduleById,
     updateSchedule,
     deleteCategoryById,
-	getByMovieId
+	getByMovieId,
+	getByMovieIdTrangThai
 }
