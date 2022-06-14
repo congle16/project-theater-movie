@@ -30,7 +30,7 @@ const authenticate = async (req, res, next) => {
 
 const checkRole = (...role) => (req, res, next) => {
     const user = req.user;
-    if (role.indexOf(user.role) === -1) {
+    if (role.indexOf(user.type) === -1) {
         console.log("Unauthorized");
         return res.status(403).json({
             message: 'Unauthenticated'

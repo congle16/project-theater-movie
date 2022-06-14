@@ -5,7 +5,11 @@ const {Phim} = require('../../models');
 const getAllMovies = async () => {
     try {
         return await Phim.findAll({
-            attributes: ['id', 'maTheLoai', 'tenPhim', 'noiDungPhim', 'daoDien', 'nuocSanXuat', 'thoiLuong', 'trailer', 'poster', 'trangThai'],
+            attributes: ['id', 'tenPhim', 'noiDungPhim', 'daoDien', 'nuocSanXuat', 'thoiLuong', 'trailer', 'poster', 'trangThai'],
+            include: [{
+                association: 'theLoaiPhim',
+                attributes: ['id', 'tenTheLoai']
+            }]
         });
     } catch (error) {
         console.log(error);
@@ -34,7 +38,11 @@ const getMovieById = async (id) => {
             where: {
                 id
             },
-            attributes: ['id', 'maTheLoai', 'tenPhim', 'noiDungPhim', 'daoDien', 'nuocSanXuat', 'thoiLuong', 'trailer', 'poster', 'trangThai']
+            attributes: ['id', 'tenPhim', 'noiDungPhim', 'daoDien', 'nuocSanXuat', 'thoiLuong', 'trailer', 'poster', 'trangThai'],
+            include: [{
+                association: 'theLoaiPhim',
+                attributes: ['id', 'tenTheLoai']
+            }]
         });
     } catch (error) {
         console.log(error);

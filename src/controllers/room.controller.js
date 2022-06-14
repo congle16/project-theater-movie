@@ -12,7 +12,6 @@ class RoomController {
             tenPhong,
             soLuongGhe
         } = req.body;
-        console.log(tenPhong, soLuongGhe);
 
         if (!tenPhong || !soLuongGhe) {
             return res.status(400).json({

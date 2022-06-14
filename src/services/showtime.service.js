@@ -5,7 +5,18 @@ const {SuatChieu} = require('../../models');
 const getAllShowtimes = async () => {
     try {
         return await SuatChieu.findAll({
-            attributes: ['id', 'maLichChieu', 'tenSuatChieu', 'trangThai', 'timeStart', 'timeEnd']
+            attributes: ['id', 'tenSuatChieu', 'trangThai', 'timeStart', 'timeEnd'],
+            include: [{
+                association: 'lichChieu',
+                attributes: ['id', 'ngayChieu'],
+                include: [{
+                    association: 'phongChieu',
+                    attributes: ['id', 'tenPhong']
+                }, {
+                    association: 'phim',
+                    attributes: ['id', 'tenPhim']
+                }]
+            }]
         });
     } catch (error) {
         console.log(error);

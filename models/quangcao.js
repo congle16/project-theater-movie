@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Phim, {
-        foreignKey: 'maPhim'
+        foreignKey: 'maPhim',
+        as: 'phim'
       })
     }
   }

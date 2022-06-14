@@ -7,7 +7,36 @@ const {
 const getAllBookings = async () => {
     try {
         return await VeMua.findAll({
-            attributes: ['id', 'maUser', 'maVe']
+            attributes: ['id'],
+            include: [{
+                association: 'user',
+                attributes: ['username'],
+                include: [{
+                    association: 'khachHang',
+                    attributes: ['id', 'tenKH', 'SDT']
+                }]
+                },
+                {
+                association: 've',
+                attributes: ['id', 'ngayMua'],
+                include: [{
+                        association: 'suatChieu',
+                        attributes: ['id', 'tenSuatChieu', 'timeStart', 'timeEnd'],
+                    },
+                    {
+                        association: 'loaiVe',
+                        attributes: ['id', 'tenLoaiVe']
+                    },
+                    {
+                        association: 'phongChieu',
+                        attributes: ['id', 'tenPhong']
+                    },
+                    {
+                        association: 'phim',
+                        attributes: ['id', 'tenPhim', 'daoDien']
+                    }
+                ],
+            }]
         });
     } catch (error) {
         console.log(error);
@@ -36,7 +65,37 @@ const getTicketBuyById = async (id) => {
             where: {
                 id
             },
-            attributes: ['maUser', 'maVe']
+            attributes: ['id'],
+                include: [{
+                        association: 'user',
+                        attributes: ['username'],
+                        include: [{
+                            association: 'khachHang',
+                            attributes: ['id', 'tenKH', 'SDT']
+                        }]
+                    },
+                    {
+                        association: 've',
+                        attributes: ['id', 'ngayMua'],
+                        include: [{
+                                association: 'suatChieu',
+                                attributes: ['id', 'tenSuatChieu', 'timeStart', 'timeEnd'],
+                            },
+                            {
+                                association: 'loaiVe',
+                                attributes: ['id', 'tenLoaiVe']
+                            },
+                            {
+                                association: 'phongChieu',
+                                attributes: ['id', 'tenPhong']
+                            },
+                            {
+                                association: 'phim',
+                                attributes: ['id', 'tenPhim', 'daoDien']
+                            }
+                        ],
+                    }
+                ]
         });
     } catch (error) {
         console.log(error);
