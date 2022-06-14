@@ -95,6 +95,7 @@ class ScheduleController {
                 message: 'No schedule found'
             });
         }
+		 return res.status(200).json(schedule);
 	}
 
     async showDetail(req, res) {
