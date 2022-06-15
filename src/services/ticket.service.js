@@ -23,6 +23,10 @@ const getAllTickets = async () => {
             {
                 association: 'phim',
                 attributes: ['id', 'tenPhim', 'daoDien']
+            },
+            {
+                association: 'ghe',
+                attributes: ['id', 'vitriDay', 'vitriCot']
             }
         ],
         });
@@ -69,6 +73,10 @@ const getTicketById = async (id) => {
                     {
                         association: 'phim',
                         attributes: ['id', 'tenPhim', 'daoDien']
+                    },
+                    {
+                        association: 'ghe',
+                        attributes: ['id', 'vitriDay', 'vitriCot']
                     }
                 ],
         });

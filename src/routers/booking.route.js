@@ -8,7 +8,7 @@ const BookingController = require('../controllers/booking.controller');
 
 bookingRouter.get('/', BookingController.index);
 
-bookingRouter.post('/', BookingController.create);
+bookingRouter.post('/', authenticate, BookingController.create);
 
 bookingRouter.get('/:id', BookingController.getById);
 
