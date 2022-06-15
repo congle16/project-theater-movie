@@ -39,6 +39,14 @@ class AdvertisementController{
             });
         }
 
+        const movie = await getMovieById(maPhim);
+
+        if(!movie) {
+            return res.status(404).json({
+                message: 'No movie found'
+            });
+        }
+
         const advertisement = await createAdvertisement({
             maPhim,
             tenQuangCao,

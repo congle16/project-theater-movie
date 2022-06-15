@@ -24,8 +24,10 @@ class BookingController {
     }
 
     async create(req, res) {
+        const maUser = req.user.dataValues.id;
+        console.log(maUser);
+
         const {
-            maUser,
             maVe
         } = req.body;
 
