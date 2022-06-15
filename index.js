@@ -52,12 +52,13 @@ const swaggerOptions = {
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
+app.use(cors());
+app.options("*",cors());
 // route init
 app.use('/api/v1', rootRouter);
 
 const port = process.env.PORT || 5000;
-const host = '0.0.0.0'
+const host = '0.0.0.0'	
 app.listen(port, host, () => {
     console.log(`Server is listening on port ${properties.SYSTEM.PORT}`);
 });
