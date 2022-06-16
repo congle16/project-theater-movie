@@ -82,7 +82,8 @@ class UserController {
 
         return res.status(200).json(
             {
-                message: 'Create User success'
+                message: 'Create User success',
+				user
             }
         );
     }
