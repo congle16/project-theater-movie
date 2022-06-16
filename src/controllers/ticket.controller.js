@@ -97,7 +97,8 @@ class TicketController {
         }
 
         return res.status(201).json({
-            message: 'Create Ticket successfully'
+            message: 'Create Ticket successfully',
+			ticket
         });
     }
 
