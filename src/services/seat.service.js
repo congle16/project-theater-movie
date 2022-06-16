@@ -88,6 +88,23 @@ const updateSeat = async (id, seat) => {
     }
 };
 
+const updateTrangthai = async (id, seat) => {
+    try {
+        return await Ghe.update(seat, {
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        }
+    }
+};
+
+
 const deleteSeat = async (id) => {
     try {
         return await Ghe.update({
@@ -112,5 +129,6 @@ module.exports = {
     getSeatById,
     updateSeat,
     deleteSeat,
-	getByRoomId
+	getByRoomId,
+	updateTrangthai
 }
