@@ -14,6 +14,8 @@ class SeatController {
 
     async index(req, res) {
         const seats = await getAllSeats();
+        const query = req.query;
+        console.log(query);
 
         if (!seats) {
             return res.status(404).json({

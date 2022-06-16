@@ -18,6 +18,8 @@ class ScheduleController {
 
     async index(req, res) {
         const schedules = await getAllSchedules();
+        const query = req.query;
+        console.log(query);
 
         if(!schedules) {
             return res.status(404).json({

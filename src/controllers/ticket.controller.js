@@ -22,10 +22,17 @@ const {
     getMovieById
 } = require('../services/movie.service');
 
+const {
+    getSeatById,
+    deleteSeat
+} = require('../services/seat.service');
+
 class TicketController {
 
     async index(req, res) {
         const tickets = await getAllTickets();
+        const query = req.query;
+        console.log(query);
 
         if (!tickets) {
             return res.status(404).json({
@@ -38,12 +45,10 @@ class TicketController {
 
     async create(req, res) {
         const {
-            maSuatChieu, maLoaiVe, maPhong, maPhim, ngayMua
+            maSuatChieu, maLoaiVe, maPhong, maPhim, ngayMua, maGhe
         } = req.body;
 
-        console.log(maSuatChieu, maLoaiVe, maPhong, maPhim, ngayMua);
-
-        if (!maSuatChieu || !maLoaiVe || !maPhong || !maPhim || !ngayMua) {
+        if (!maSuatChieu || !maLoaiVe || !maPhong || !maPhim || !ngayMua || !maGhe) {
             return res.status(400).json({
                 message: 'Missing fields'
             });
@@ -65,7 +70,7 @@ class TicketController {
             });
         }
 
-        const room = getRoomById(maPhong);
+        const room = await getRoomById(maPhong);
 
         if (!room) {
             return res.status(404).json({
@@ -73,11 +78,27 @@ class TicketController {
             });
         }
 
-        const movie = getMovieById(maPhim);
+        const movie = await getMovieById(maPhim);
+        console.log(movie);
 
         if (!movie) {
             return res.status(404).json({
                 message: 'No movie found'
+            });
+        }
+
+        const seat = await getSeatById(maGhe);
+
+        if (!seat) {
+            return res.status(404).json({
+                message: 'No seat found'
+            });
+        }
+
+        console.log(seat.trangThai);
+        if (seat.trangThai === 'Đã đặt') {
+            return res.status(400).json({
+                message: 'Seat is already booked'
             });
         }
 
@@ -87,12 +108,21 @@ class TicketController {
             maPhong,
             maPhim,
             ngayMua,
+            maGhe,
             trangThai : 'Trống'
         });
 
         if (!ticket) {
             return res.status(500).json({
                 message: 'Can not create Ticket'
+            })
+        }
+
+        const updateSeat = await deleteSeat(maGhe);
+
+        if (!updateSeat) {
+            return res.status(500).json({
+                message: 'Error when book ticket'
             })
         }
 

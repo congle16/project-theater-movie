@@ -119,6 +119,8 @@ class UserController {
     // GET get all users
     async getAllUsers(req, res) {
         const users = await getAllUsers();
+        const query = req.query;
+        console.log(query);
         if (!users) {
             return res.status(404).json({
                 message: 'No users found'
@@ -129,6 +131,8 @@ class UserController {
 
     async getAllKhachHang(req, res) {
         const khachHangs = await getAllKhachHang();
+        const query = req.query;
+        console.log(query);
         if (!khachHangs) {
             return res.status(404).json({
                 message: 'Found Failed'

@@ -10,6 +10,8 @@ const {
 
 class PositionController {
     async getAll(req, res) {
+        const query = req.query;
+        console.log(query);
         try {
             const positions = await getAllChucVu();
             if (!positions) {

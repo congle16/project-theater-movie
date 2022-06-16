@@ -14,6 +14,8 @@ class AdvertisementController{
 
     async index(req, res){
         const advertisements = await getAllAdvertisements();
+        const query = req.query;
+        console.log(query);
 
         if(!advertisements) {
             return res.status(404).json({
