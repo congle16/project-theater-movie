@@ -22,6 +22,10 @@ const {
     getMovieById
 } = require('../services/movie.service');
 
+const {
+    getSeatById
+} = require('../services/seat.service');
+
 class TicketController {
 
     async index(req, res) {
@@ -38,12 +42,12 @@ class TicketController {
 
     async create(req, res) {
         const {
-            maSuatChieu, maLoaiVe, maPhong, maPhim, ngayMua
+            maSuatChieu, maLoaiVe, maPhong, maGhe, maPhim, ngayMua
         } = req.body;
 
-        console.log(maSuatChieu, maLoaiVe, maPhong, maPhim, ngayMua);
+        console.log(maSuatChieu, maLoaiVe, maPhong, maGhe, maPhim, ngayMua);
 
-        if (!maSuatChieu || !maLoaiVe || !maPhong || !maPhim || !ngayMua) {
+        if (!maSuatChieu || !maLoaiVe || !maPhong || !maGhe || !maPhim || !ngayMua) {
             return res.status(400).json({
                 message: 'Missing fields'
             });
@@ -72,6 +76,14 @@ class TicketController {
                 message: 'No room found'
             });
         }
+		
+		const seat = getSeatById(maGhe);
+
+        if (!seat) {
+            return res.status(404).json({
+                message: 'No seat found'
+            });
+        }
 
         const movie = getMovieById(maPhim);
 
@@ -85,6 +97,7 @@ class TicketController {
             maSuatChieu,
             maLoaiVe,
             maPhong,
+			maGhe,
             maPhim,
             ngayMua,
             trangThai : 'Trống'
