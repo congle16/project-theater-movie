@@ -10,6 +10,8 @@ class CategoryController {
 
     async getAllCategories(req, res) {
         const categories = await getAllCategories();
+        const query = req.query;
+        console.log(query);
 
         if (!categories) {
             return res.status(404).json({

@@ -33,6 +33,8 @@ class RoomController {
 
     async getAllRooms(req, res) {
         const rooms = await getAllRooms();
+        const query = req.query;
+        console.log(query);
 
         if (!rooms) {
             return res.status(404).json({

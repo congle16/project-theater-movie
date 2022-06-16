@@ -11,6 +11,8 @@ class TicketTypeController {
 
     async index(req, res) {
         const ticketTypes = await getAllTicketTypes();
+        const query = req.query;
+        console.log(query);
 
         if (!ticketTypes) {
             return res.status(404).json({

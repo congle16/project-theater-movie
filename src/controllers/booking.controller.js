@@ -6,13 +6,16 @@ const {
 } = require('../services/booking.service');
 
 const {
-    getTicketById
+    getTicketById,
+    deleteTicket
 } = require('../services/ticket.service');
 
 class BookingController {
 
     async index(req, res) {
         const tickets = await getAllBookings();
+        const query = req.query;
+        console.log(query);
 
         if (!tickets) {
             return res.status(404).json({
@@ -61,6 +64,14 @@ class BookingController {
         if (!ticket) {
             return res.status(500).json({
                 message: 'Can not book ticket'
+            })
+        }
+
+        const deleteTicket = await deleteTicket(maVe);
+
+        if (!deleteTicket) {
+            return res.status(500).json({
+                message: 'Error when book ticket'
             })
         }
 
