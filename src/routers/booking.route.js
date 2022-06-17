@@ -10,6 +10,8 @@ bookingRouter.get('/', BookingController.index);
 
 bookingRouter.post('/', authenticate, BookingController.create);
 
+bookingRouter.post('/create', authenticate, BookingController.create2);
+
 bookingRouter.get('/:id', BookingController.getById);
 
 bookingRouter.get('/user/:maUser', BookingController.getTicketBuyByUserId);

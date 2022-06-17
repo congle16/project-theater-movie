@@ -80,6 +80,61 @@ class BookingController {
             message: 'Book ticket successfully'
         });
     }
+	
+	
+    async create2(req, res) {
+
+
+        const {
+			maUser,
+            maVe
+        } = req.body;
+
+        if (!maUser || !maVe) {
+            return res.status(400).json({
+                message: 'Missing fields'
+            });
+        }
+
+        const CheckTicket = await getTicketById(maVe);
+
+        if (!CheckTicket) {
+            return res.status(404).json({
+                message: 'No ticket found'
+            });
+        }
+
+        const checkExists = await getTicketBuyById(maVe);
+
+        if (checkExists) {
+            return res.status(400).json({
+                message: 'Ticket is already booked'
+            });
+        }
+
+        const ticket = await createBooking({
+            maUser,
+            maVe
+        });
+
+        if (!ticket) {
+            return res.status(500).json({
+                message: 'Can not book ticket'
+            })
+        }
+
+        const deleteTicket = await deleteTicket(maVe);
+
+        if (!deleteTicket) {
+            return res.status(500).json({
+                message: 'Error when book ticket'
+            })
+        }
+
+        return res.status(201).json({
+            message: 'Book ticket successfully'
+        });
+    }
 
     async getTicketBuyByUserId(req, res) {
         const {
