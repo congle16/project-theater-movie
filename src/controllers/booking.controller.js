@@ -2,7 +2,8 @@ const {
     getAllBookings,
     createBooking,
     getTicketBuyById,
-    updateBooking
+    updateBooking,
+	getTicketBuyByUserId
 } = require('../services/booking.service');
 
 const {
@@ -80,7 +81,23 @@ class BookingController {
         });
     }
 
-    async getById(req, res) {
+    async getTicketBuyByUserId(req, res) {
+        const {
+            maUser
+        } = req.params;
+
+        const ticket = await getTicketBuyByUserId(maUser);
+
+        if (!ticket) {
+            return res.status(404).json({
+                message: 'No ticket found'
+            });
+        }
+
+        return res.status(200).json(ticket);
+    }
+	
+	async getById(req, res) {
         const {
             id
         } = req.params;

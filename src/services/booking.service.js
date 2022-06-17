@@ -106,6 +106,53 @@ const getTicketBuyById = async (id) => {
     }
 };
 
+const getTicketBuyByUserId = async (maUser) => {
+    try {
+        return await VeMua.findAll({
+            where: {
+                maUser
+            },
+            attributes: ['id'],
+                include: [{
+                        association: 'user',
+                        attributes: ['username'],
+                        include: [{
+                            association: 'khachHang',
+                            attributes: ['id', 'tenKH', 'SDT']
+                        }]
+                    },
+                    {
+                        association: 've',
+                        attributes: ['id', 'ngayMua'],
+                        include: [{
+                                association: 'suatChieu',
+                                attributes: ['id', 'tenSuatChieu', 'timeStart', 'timeEnd'],
+                            },
+                            {
+                                association: 'loaiVe',
+                                attributes: ['id', 'tenLoaiVe']
+                            },
+                            {
+                                association: 'phongChieu',
+                                attributes: ['id', 'tenPhong']
+                            },
+                            {
+                                association: 'phim',
+                                attributes: ['id', 'tenPhim', 'daoDien']
+                            }
+                        ],
+                    }
+                ]
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        }
+    }
+};
+
 const updateBooking = async (id, ticket) => {
     try {
         return await VeMua.update(ticket, {
@@ -126,5 +173,6 @@ module.exports = {
     getAllBookings,
     createBooking,
     getTicketBuyById,
-    updateBooking
+    updateBooking,
+	getTicketBuyByUserId
 }
