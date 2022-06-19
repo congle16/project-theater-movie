@@ -123,7 +123,7 @@ const getUserById = async (id) => {
             where: {
                 id
             },
-            attributes: ['username', 'type', 'trangThai'],
+            attributes: ['username', 'type', 'trangThai', 'password'],
             include: [{
                 model: KhachHang,
                 as : 'khachHang',
