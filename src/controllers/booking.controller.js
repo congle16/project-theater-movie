@@ -67,9 +67,9 @@ class BookingController {
             })
         }
 
-        const deleteTicket = await deleteTicket(maVe);
+        const deletedTicket = await deleteTicket(maVe);
 
-        if (!deleteTicket) {
+        if (!deletedTicket) {
             return res.status(500).json({
                 message: 'Error when book ticket'
             })
