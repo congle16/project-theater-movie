@@ -276,6 +276,48 @@ class UserController {
             message: 'Update user success'
         });
     }
+
+    async changePassword(req, res) {
+        const { oldPassword, newPassword } = req.body;
+
+        const user = await getUserById(req.user.dataValues.id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        const isSuccess = await comparePassword(oldPassword, user.password);
+
+        if (!isSuccess) {
+            return res.status(400).json({
+                message: 'Password is not valid'
+            });
+        }
+
+        const passwordHash = await scriptPassword(newPassword);
+
+        const result = updateUser(req.user.dataValues.id, {
+            password: passwordHash
+        });
+
+        if (!result) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Change password success'
+        });
+    }
+    
+    async logout(req, res) {
+        return res.status(200).json({
+            message: 'Logout success'
+        });
+    }
 }
 
 module.exports = new UserController;
