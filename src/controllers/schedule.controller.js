@@ -3,7 +3,9 @@ const {
     createSchedule,
     getScheduleById,
     updateSchedule,
-    deleteCategoryById
+    deleteCategoryById,
+	getByMovieId,
+	getByMovieIdTrangThai
 } = require('../services/schedule.service');
 
 const {
@@ -30,6 +32,7 @@ class ScheduleController {
         return res.status(200).json(schedules);
     }
 
+	
     async create(req, res) {
         const {
             maPhong,
@@ -76,6 +79,49 @@ class ScheduleController {
             message: 'Create schedule successfully'
         });
     }
+	
+	async getByMovieId(req, res) {
+        const {
+            maPhim
+        } = req.params;
+
+        if (!maPhim) {
+            return res.status(400).json({
+                message: 'Missing fields'
+            });
+        }
+
+        const schedule = await getByMovieId(maPhim);
+
+        if (!schedule) {
+            return res.status(404).json({
+                message: 'No schedule found'
+            });
+        }
+		 return res.status(200).json(schedule);
+	}
+	
+	async getByMovieIdTrangThai(req, res) {
+        const {
+            maPhim,
+			trangThai
+        } = req.params;
+
+        if (!maPhim) {
+            return res.status(400).json({
+                message: 'Missing fields'
+            });
+        }
+
+        const schedule = await getByMovieIdTrangThai(maPhim, trangThai);
+
+        if (!schedule) {
+            return res.status(404).json({
+                message: 'No schedule found'
+            });
+        }
+		 return res.status(200).json(schedule);
+	}
 
     async showDetail(req, res) {
         const {

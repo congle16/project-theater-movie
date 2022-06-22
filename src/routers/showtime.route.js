@@ -16,4 +16,6 @@ showTimeRouter.put('/:id', ShowtimeController.update);
 
 showTimeRouter.delete('/:id', ShowtimeController.delete);
 
+showTimeRouter.get('/malichchieutrangthai/:maLichChieu/:trangThai', ShowtimeController.getByScheduleIdTrangThai);
+
 module.exports = showTimeRouter;

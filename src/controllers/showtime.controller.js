@@ -3,7 +3,8 @@ const {
     createShowtime,
     getShowtimeById,
     updateShowtime,
-    deleteShowtime
+    deleteShowtime,
+	getByScheduleIdTrangThai
 } = require('../services/showtime.service');
 
 const {
@@ -150,6 +151,28 @@ class ShowtimeController {
             message: 'Delete showtime successfully'
         });
     }
+	
+	async getByScheduleIdTrangThai(req, res) {
+        const {
+            maLichChieu,
+			trangThai
+        } = req.params;
+
+        if (!maLichChieu) {
+            return res.status(400).json({
+                message: 'Missing fields'
+            });
+        }
+
+        const showtime = await getByScheduleIdTrangThai(maLichChieu, trangThai);
+
+        if (!showtime) {
+            return res.status(404).json({
+                message: 'No Showtime found'
+            });
+        }
+		 return res.status(200).json(showtime);
+	}
 }
 
 module.exports = new ShowtimeController;

@@ -14,7 +14,8 @@ const {
     getUserById,
     deleteUserById,
     updateUser,
-    getCustomerByUserId
+    getCustomerByUserId,
+	create2
 } = require("../services/user.service");
 
 
@@ -67,6 +68,73 @@ class UserController {
 
         const khachHang = await createKhachHang({
             maUser: maxId + 1,
+            tenKH,
+            gioiTinh,
+            CMND,
+            SDT
+        });
+
+        if (!khachHang || !user) {
+            return res.status(500).json({
+                message: 'Can not create User'
+            })
+        }
+
+        return res.status(200).json(
+            {
+                message: 'Create User success',
+				
+            }
+        );
+    }
+	
+	async create2(req, res) {
+        const maxId = await getMaxId();
+        const {
+            tenKH,
+            gioiTinh,
+            CMND,
+            SDT
+        } = req.body;
+
+        const { username, password } = req.body;
+
+        if (!tenKH || !gioiTinh || !CMND || !SDT || !username || !password) {
+            return res.status(400).json({
+                message: 'Missing fields'
+            });
+        }
+
+        if (!password || !password.trim()) {
+            return res.status(400).json({
+                message: 'Password is not valid'
+            });
+        }
+
+        if (await getUserByCardId(CMND)) {
+            return res.status(400).json({
+                message: 'CMND is exist'
+            });
+        }
+
+        if (await getUserByUsername(username)) {
+            return res.status(400).json({
+                message: 'Username is exist'
+            });
+        }
+
+        const passwordHash = await scriptPassword(password);
+        console.log({passwordHash});
+
+        const user = await createUser({
+            type: 'khach hang',
+            trangThai: 'active',
+            username,
+            password: passwordHash
+        });
+
+        const khachHang = await createKhachHang({
+            maUser: maxId + 10,
             tenKH,
             gioiTinh,
             CMND,

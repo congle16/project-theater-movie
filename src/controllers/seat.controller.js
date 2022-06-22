@@ -3,7 +3,9 @@ const {
     createSeat,
     getSeatById,
     updateSeat,
-    deleteSeat
+    deleteSeat,
+	getByRoomId,
+	updateTrangthai
 } = require('../services/seat.service');
 
 const {
@@ -80,6 +82,22 @@ class SeatController {
 
         return res.status(200).json(seat);
     }
+	
+	async getByRoomId(req, res) {
+        const {
+            maPhong
+        } = req.params;
+
+        const seat = await getByRoomId(maPhong);
+
+        if (!seat) {
+            return res.status(404).json({
+                message: 'No seat found'
+            });
+        }
+
+        return res.status(200).json(seat);
+    }
 
     async update(req, res) {
         const {
@@ -111,6 +129,44 @@ class SeatController {
             maPhong,
             vitriDay,
             vitriCot,
+            trangThai
+        });
+
+        if (!seat) {
+            return res.status(500).json({
+                message: 'Can not update this seat'
+            })
+        }
+
+        return res.status(200).json({
+            message: 'Update seat successfully'
+        });
+    }
+	
+	async updateTrangthai(req, res) {
+        const {
+            id
+        } = req.params;
+
+        const checkExists = await getSeatById(id);
+
+        if (!checkExists) {
+            return res.status(404).json({
+                message: 'No seat found'
+            });
+        }
+
+        const {
+            trangThai
+        } = req.body;
+
+        if (!trangThai) {
+            return res.status(400).json({
+                message: 'Missing required fields'
+            });
+        }
+
+        const seat = await updateTrangthai(id, {
             trangThai
         });
 

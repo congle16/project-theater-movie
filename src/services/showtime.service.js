@@ -90,10 +90,29 @@ const deleteShowtime = async (id) => {
     }
 };
 
+const getByScheduleIdTrangThai = async (maLichChieu, trangThai) => {
+    try {
+        return await SuatChieu.findAll({
+            where: {
+                maLichChieu,
+				trangThai
+            },
+            attributes: ['id', 'maLichChieu', 'tenSuatChieu', 'trangThai', 'timeStart', 'timeEnd']
+        });
+    } catch (error) {
+        console.log(error);
+        return {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    }
+}
+
 module.exports = {
     getAllShowtimes,
     createShowtime,
     getShowtimeById,
     updateShowtime,
-    deleteShowtime
+    deleteShowtime,
+	getByScheduleIdTrangThai
 }
